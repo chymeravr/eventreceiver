@@ -37,7 +37,6 @@ public abstract class EntryPoint extends AbstractHandler {
         setReponseHeaders(response);
         baseRequest.setHandled(true);
         EventPing.AdMetaData adMetaData = eventPing.getAdMetaData();
-        System.out.println(eventPing);
         EventLog eventLog = new EventLog(System.currentTimeMillis(),
                 eventPing.getAppId(),
                 eventPing.getSdkVersion(),
@@ -48,8 +47,6 @@ public abstract class EntryPoint extends AbstractHandler {
         try {
             eventLogger.sendMessage(adMetaData.getServingId(), encode(new TSerializer(TJSONProtocol::new).serialize(eventLog)));
         } catch (Exception e) {
-            System.out.println("Unable to send kafka message");
-            e.printStackTrace();
             log.error("Unable to send kafka message");
         }
     }

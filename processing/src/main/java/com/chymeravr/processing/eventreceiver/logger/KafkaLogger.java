@@ -28,7 +28,6 @@ public class KafkaLogger implements DownstreamLogger {
     }
 
     public void sendMessage(String requestId, String event) {
-        System.out.println("Loggggg");
         ProducerRecord<String, String> data = new ProducerRecord<>("serving", requestId, event);
         producer.send(data);
     }
