@@ -1,7 +1,7 @@
 # Serving
 
 ## Request
-Path: `/api/v1/ads`
+Path: `/api/v1/events`
 
 #### Request
 ```json
@@ -9,55 +9,22 @@ Path: `/api/v1/ads`
   "sdkVersion": 1,
   "timestamp": 123123,
   "appId": "myapp",
-  "placements": [
-    {
-      "id": "1uuid",
-      "adFormat": "IMG_360"
-    }, 
-    {
-      "id": "2uuid",
-      "adFormat": "IMG_360"
-    }
-  ],
-  "osId": "Android",
-  "osVersion": "x.y.z",
-  "userId": "asdf98asdf9asd9f",
-  "hmdId": 2,
-  "location": {
-    "lat": 34.0,
-    "lon": 31.1,
-    "accuracy": 84.33
+  "eventType": "ERROR/AD_SHOW/AD_CLOSE/AD_CLICK/AD_VIEW_METRICS",
+  "adMetaData": {
+    "servingId": "uuid1",
+    "instanceId": 291
   },
-  "demographics": {
-    "dob": "yyyy/mm/dd",
-    "gender": "string",
-    "email": "abc@def.ghi"
-  },
-  "deviceInfo": {
-    "manufacturer": "Samsung",
-    "model": "Note 7 Boom Boom",
-    "ram": "4gb"
-  },
-  "connectivity": "Wifi",
-  "wifiName": "MarioNGV"
+  "paramMap" : {
+    "key1": "value1"
+    ...
+  }
 }
 ```
 #### Response
 ```json
 {
     "statusCode": 200,
-    "status": "OK",
-    "experimentId": 91,
-    "ads" : {
-      "placementId1": {
-        "servingId": "2345872089ggggg",
-        "mediaUrl": "http://chymeravr.com"
-      },
-      "placementId2": {
-        "servingId": "2345872s089ggggg",
-        "mediaUrl": "http://chymeravr.com"
-      }
-    }
+    "status": "OK"
 }
 ```
 
