@@ -36,24 +36,26 @@ public abstract class EntryPoint extends AbstractHandler {
         EventPing eventPing = deserializer.deserializeRequest(request);
         setReponseHeaders(response);
         baseRequest.setHandled(true);
-        EventPing.AdMeta adMeta = eventPing.getAdMeta();
-
+        EventPing.AdMetaData adMetaData = eventPing.getAdMetaData();
+        System.out.println(eventPing);
         EventLog eventLog = new EventLog(System.currentTimeMillis(),
                 eventPing.getAppId(),
                 eventPing.getSdkVersion(),
                 eventPing.getEventType(),
-                new AdServingMeta((adMeta).getServingId(), adMeta.getInstanceId()),
+                new AdServingMeta(adMetaData.getServingId(), adMetaData.getInstanceId()),
                 ResponseCode.OK,
-                eventPing.getParameterMap());
+                eventPing.getParamMap());
         try {
-            eventLogger.sendMessage(adMeta.getServingId(), encode(new TSerializer(TJSONProtocol::new).serialize(eventLog)));
+            eventLogger.sendMessage(adMetaData.getServingId(), encode(new TSerializer(TJSONProtocol::new).serialize(eventLog)));
         } catch (Exception e) {
+            System.out.println("Unable to send kafka message");
+            e.printStackTrace();
             log.error("Unable to send kafka message");
         }
     }
 
     private String encode(byte[] binaryData) {
-        return Base64.getEncoder().encodeToString(binaryData);
+        return new String(binaryData);
     }
 
     protected abstract void setReponseHeaders(HttpServletResponse response);

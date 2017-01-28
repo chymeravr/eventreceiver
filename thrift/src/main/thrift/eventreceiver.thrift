@@ -25,5 +25,5 @@ struct EventLog {
     4: required EventType eventType;
     5: required AdServingMeta adServingMeta;
     6: required ResponseCode responseCode;
-    7: required map<string, string> parameterMap;
+    7: required map<string, string> paramMap;
 }

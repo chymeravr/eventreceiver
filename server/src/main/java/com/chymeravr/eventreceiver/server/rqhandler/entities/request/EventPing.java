@@ -14,20 +14,20 @@ public class EventPing {
     private final int sdkVersion;
     private final String appId;
     private final EventType eventType;
-    private final Map<String, String> parameterMap;
-    private final AdMeta adMeta;
+    private final Map<String, String> paramMap;
+    private final AdMetaData adMetaData;
     public EventPing(long timestamp, int sdkVersion, String appId, String servingId, int instanceId, EventType eventType,
-                     Map<String, String> parameterMap) {
+                     Map<String, String> paramMap) {
         this.timestamp = timestamp;
         this.sdkVersion = sdkVersion;
         this.appId = appId;
-        this.parameterMap = parameterMap;
+        this.paramMap = paramMap;
         this.eventType = eventType;
-        this.adMeta = new AdMeta(servingId, instanceId);
+        this.adMetaData = new AdMetaData(servingId, instanceId);
     }
 
     @Data
-    public class AdMeta {
+    public class AdMetaData {
         private final String servingId;
         private final int instanceId;
     }
