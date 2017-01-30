@@ -1,7 +1,7 @@
 package com.chymeravr.eventreceiver.server.rqhandler.iface;
 
+import com.chymeravr.DownstreamLogger;
 import com.chymeravr.eventreceiver.server.rqhandler.entities.request.EventPing;
-import com.chymeravr.processing.eventreceiver.logger.DownstreamLogger;
 import com.chymeravr.thrift.eventreceiver.AdServingMeta;
 import com.chymeravr.thrift.eventreceiver.EventLog;
 import com.chymeravr.thrift.eventreceiver.ResponseCode;
@@ -15,7 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Base64;
 
 /**
  * Created by rubbal on 19/1/17.
@@ -28,6 +27,7 @@ public abstract class EntryPoint extends AbstractHandler {
     private final RequestDeserializer deserializer;
     private final ResponseSerializer serializer;
     private final DownstreamLogger eventLogger;
+    private final String topicName;
 
     public void handle(String target,
                        org.eclipse.jetty.server.Request baseRequest,
@@ -45,7 +45,9 @@ public abstract class EntryPoint extends AbstractHandler {
                 ResponseCode.OK,
                 eventPing.getParamMap());
         try {
-            eventLogger.sendMessage(adMetaData.getServingId(), encode(new TSerializer(TJSONProtocol::new).serialize(eventLog)));
+            eventLogger.sendMessage(adMetaData.getServingId(),
+                    encode(new TSerializer(TJSONProtocol::new).serialize(eventLog)),
+                    topicName);
         } catch (Exception e) {
             log.error("Unable to send kafka message");
         }

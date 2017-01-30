@@ -2,10 +2,12 @@ package com.chymeravr.eventreceiver.server;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.chymeravr.eventreceiver.server.guice.ConfigModule;
 import com.chymeravr.eventreceiver.server.guice.ProcessingModule;
 import com.chymeravr.eventreceiver.server.rqhandler.V1EntryPoint;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import org.apache.commons.configuration.Configuration;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
@@ -28,7 +30,10 @@ public class App {
     private void run() throws Exception {
         Server server = new Server(port);
 
-        Injector injector = Guice.createInjector(new ProcessingModule());
+        Injector configInjector = Guice.createInjector(new ConfigModule(this.configFilePath));
+        Configuration config = configInjector.getInstance(Configuration.class);
+
+        Injector injector = Guice.createInjector(new ProcessingModule(config));
         V1EntryPoint v1EntryPoint = injector.getInstance(V1EntryPoint.class);
 
         ContextHandler context = new ContextHandler();

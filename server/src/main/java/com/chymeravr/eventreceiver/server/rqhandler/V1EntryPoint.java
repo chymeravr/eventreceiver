@@ -3,16 +3,18 @@ package com.chymeravr.eventreceiver.server.rqhandler;
 import com.chymeravr.eventreceiver.server.rqhandler.iface.EntryPoint;
 import com.chymeravr.eventreceiver.server.rqhandler.iface.RequestDeserializer;
 import com.chymeravr.eventreceiver.server.rqhandler.iface.ResponseSerializer;
-import com.chymeravr.processing.eventreceiver.logger.DownstreamLogger;
+import com.chymeravr.DownstreamLogger;
 
 import javax.servlet.http.HttpServletResponse;
 
 public class V1EntryPoint extends EntryPoint {
 
 
-    public V1EntryPoint(RequestDeserializer deserializer, ResponseSerializer serializer,
-                        DownstreamLogger responseLogger) {
-        super(deserializer, serializer, responseLogger);
+    public V1EntryPoint(RequestDeserializer deserializer,
+                        ResponseSerializer serializer,
+                        DownstreamLogger responseLogger,
+                        String topicName) {
+        super(deserializer, serializer, responseLogger, topicName);
     }
 
     public void setReponseHeaders(HttpServletResponse response) {
