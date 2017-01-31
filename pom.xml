@@ -40,7 +40,6 @@
         <module>server</module>
         <module>thrift</module>
         <module>assembly</module>
-        <module>processing</module>
         <module>logging</module>
     </modules>
 
