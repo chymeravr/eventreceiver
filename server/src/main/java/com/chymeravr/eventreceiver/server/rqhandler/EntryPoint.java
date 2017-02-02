@@ -1,10 +1,12 @@
-package com.chymeravr.eventreceiver.server.rqhandler.iface;
+package com.chymeravr.eventreceiver.server.rqhandler;
 
 import com.chymeravr.DownstreamLogger;
 import com.chymeravr.eventreceiver.server.rqhandler.entities.request.EventPing;
-import com.chymeravr.thrift.eventreceiver.AdServingMeta;
-import com.chymeravr.thrift.eventreceiver.EventLog;
-import com.chymeravr.thrift.eventreceiver.ResponseCode;
+import com.chymeravr.eventreceiver.server.rqhandler.iface.RequestDeserializer;
+import com.chymeravr.eventreceiver.server.rqhandler.iface.ResponseSerializer;
+import com.chymeravr.schemas.eventreceiver.AdServingMeta;
+import com.chymeravr.schemas.eventreceiver.EventLog;
+import com.chymeravr.schemas.eventreceiver.ResponseCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TSerializer;

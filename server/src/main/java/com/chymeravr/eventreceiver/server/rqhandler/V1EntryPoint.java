@@ -1,6 +1,5 @@
 package com.chymeravr.eventreceiver.server.rqhandler;
 
-import com.chymeravr.eventreceiver.server.rqhandler.iface.EntryPoint;
 import com.chymeravr.eventreceiver.server.rqhandler.iface.RequestDeserializer;
 import com.chymeravr.eventreceiver.server.rqhandler.iface.ResponseSerializer;
 import com.chymeravr.DownstreamLogger;

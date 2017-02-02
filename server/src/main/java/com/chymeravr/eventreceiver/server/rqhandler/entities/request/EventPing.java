@@ -1,6 +1,6 @@
 package com.chymeravr.eventreceiver.server.rqhandler.entities.request;
 
-import com.chymeravr.thrift.eventreceiver.EventType;
+import com.chymeravr.schemas.eventreceiver.EventType;
 import lombok.Data;
 
 import java.util.Map;
