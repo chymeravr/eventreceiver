@@ -10,7 +10,6 @@
     <artifactId>server</artifactId>
     <name>server</name>
     <version>0.1-SNAPSHOT</version>
-    <url>http://maven.apache.org</url>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -28,7 +27,6 @@
             <artifactId>HikariCP</artifactId>
             <version>2.5.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.beust/jcommander -->
         <dependency>
             <groupId>com.beust</groupId>
             <artifactId>jcommander</artifactId>
@@ -40,9 +38,9 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.chymeravr.eventreceiver</groupId>
-            <artifactId>thrift</artifactId>
-            <version>${project.parent.version}</version>
+            <groupId>com.chymeravr.schemas</groupId>
+            <artifactId>schemas</artifactId>
+            <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>

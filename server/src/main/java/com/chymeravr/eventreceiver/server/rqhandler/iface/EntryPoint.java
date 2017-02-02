@@ -8,13 +8,13 @@ import com.chymeravr.thrift.eventreceiver.ResponseCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TSerializer;
-import org.apache.thrift.protocol.TJSONProtocol;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Base64;
 
 /**
  * Created by rubbal on 19/1/17.
@@ -46,7 +46,7 @@ public abstract class EntryPoint extends AbstractHandler {
                 eventPing.getParamMap());
         try {
             eventLogger.sendMessage(adMetaData.getServingId(),
-                    encode(new TSerializer(TJSONProtocol::new).serialize(eventLog)),
+                    encode(new TSerializer().serialize(eventLog)),
                     topicName);
         } catch (Exception e) {
             log.error("Unable to send kafka message");
@@ -54,7 +54,7 @@ public abstract class EntryPoint extends AbstractHandler {
     }
 
     private String encode(byte[] binaryData) {
-        return new String(binaryData);
+        return Base64.getEncoder().encodeToString(binaryData);
     }
 
     protected abstract void setReponseHeaders(HttpServletResponse response);
