@@ -2,7 +2,7 @@ package com.chymeravr.eventreceiver.server.rqhandler.entities.v1.json;
 
 import com.chymeravr.eventreceiver.server.rqhandler.iface.RequestDeserializer;
 import com.chymeravr.schemas.eventreceiver.EventPing;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +23,8 @@ public class V1RequestDeserializer implements RequestDeserializer {
             buffer.append(line);
         }
         String data = buffer.toString();
-        return new ObjectMapper().readValue(data, EventPing.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return objectMapper.readValue(data, EventPing.class);
     }
 }

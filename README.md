@@ -11,6 +11,7 @@ Path: `/api/v1/events`
   "appId": "myapp111",
   "events": [
   	{
+  		"timestamp": 555555,
   		"eventType": "AD_SHOW",
   		"adMeta": {
     		"servingId": "c049593d-5dc8-4a6e-854e-16857dbe8baf",
@@ -19,9 +20,11 @@ Path: `/api/v1/events`
   		"paramsMap" : {
     		"key1": "value1",
     		"key2": "value2"
-  		}
+  		},
+  		"asdfasd": 123
   	},
   	{
+  		"timestamp": 66666,
   		"eventType": "AD_SHOW",
   		"adMeta": {
     		"servingId": "c049593d-5dc8-4a6e-854e-16857dbe8baf",
@@ -34,7 +37,6 @@ Path: `/api/v1/events`
   	}
   ]
 }
-
 ```
 #### Response
 ```json
