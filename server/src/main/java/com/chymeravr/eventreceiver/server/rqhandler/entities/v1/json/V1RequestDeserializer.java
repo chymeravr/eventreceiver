@@ -1,8 +1,9 @@
 package com.chymeravr.eventreceiver.server.rqhandler.entities.v1.json;
 
-import com.chymeravr.eventreceiver.server.rqhandler.entities.request.EventPing;
 import com.chymeravr.eventreceiver.server.rqhandler.iface.RequestDeserializer;
-import com.google.gson.Gson;
+import com.chymeravr.schemas.eventreceiver.EventPing;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -22,6 +23,6 @@ public class V1RequestDeserializer implements RequestDeserializer {
             buffer.append(line);
         }
         String data = buffer.toString();
-        return new Gson().fromJson(data, EventPing.class);
+        return new ObjectMapper().readValue(data, EventPing.class);
     }
 }

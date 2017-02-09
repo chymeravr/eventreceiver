@@ -1,12 +1,9 @@
 package com.chymeravr.eventreceiver.server.rqhandler;
 
 import com.chymeravr.DownstreamLogger;
-import com.chymeravr.eventreceiver.server.rqhandler.entities.request.EventPing;
 import com.chymeravr.eventreceiver.server.rqhandler.iface.RequestDeserializer;
 import com.chymeravr.eventreceiver.server.rqhandler.iface.ResponseSerializer;
-import com.chymeravr.schemas.eventreceiver.AdServingMeta;
-import com.chymeravr.schemas.eventreceiver.EventLog;
-import com.chymeravr.schemas.eventreceiver.ResponseCode;
+import com.chymeravr.schemas.eventreceiver.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TSerializer;
@@ -38,20 +35,23 @@ public abstract class EntryPoint extends AbstractHandler {
         EventPing eventPing = deserializer.deserializeRequest(request);
         setReponseHeaders(response);
         baseRequest.setHandled(true);
-        EventPing.AdMetaData adMetaData = eventPing.getAdMetaData();
-        EventLog eventLog = new EventLog(System.currentTimeMillis(),
-                eventPing.getAppId(),
-                eventPing.getSdkVersion(),
-                eventPing.getEventType(),
-                new AdServingMeta(adMetaData.getServingId(), adMetaData.getInstanceId()),
-                ResponseCode.OK,
-                eventPing.getParamMap());
-        try {
-            eventLogger.sendMessage(adMetaData.getServingId(),
-                    encode(new TSerializer().serialize(eventLog)),
-                    topicName);
-        } catch (Exception e) {
-            log.error("Unable to send kafka message");
+
+        for (SDKEvent event : eventPing.getEvents()) {
+            RuntimeAdMeta adMeta = event.getAdMeta();
+            EventLog eventLog = new EventLog(event.getTimestamp(),
+                    eventPing.getAppId(),
+                    eventPing.getSdkVersion(),
+                    event.getEventType(),
+                    new AdServingMeta(adMeta.getServingId(), adMeta.getInstanceId()),
+                    ResponseCode.OK,
+                    event.getParamsMap());
+            try {
+                eventLogger.sendMessage(adMeta.getServingId(),
+                        encode(new TSerializer().serialize(eventLog)),
+                        topicName);
+            } catch (Exception e) {
+                log.error("Unable to send kafka message");
+            }
         }
     }
 

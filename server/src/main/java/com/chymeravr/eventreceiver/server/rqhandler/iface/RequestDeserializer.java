@@ -1,6 +1,7 @@
 package com.chymeravr.eventreceiver.server.rqhandler.iface;
 
-import com.chymeravr.eventreceiver.server.rqhandler.entities.request.EventPing;
+
+import com.chymeravr.schemas.eventreceiver.EventPing;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
