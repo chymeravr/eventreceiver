@@ -6,25 +6,39 @@ Path: `/api/v1/events`
 #### Request
 ```json
 {
-  "sdkVersion": 1,
+  "sdkVersion": 4,
   "timestamp": 123123,
-  "appId": "myapp",
-  "eventType": "ERROR/AD_SHOW/AD_CLOSE/AD_CLICK/AD_VIEW_METRICS",
-  "adMetaData": {
-    "servingId": "uuid1",
-    "instanceId": 291
-  },
-  "paramMap" : {
-    "key1": "value1"
-    ...
-  }
+  "appId": "myapp111",
+  "events": [
+  	{
+  		"eventType": "AD_SHOW",
+  		"adMeta": {
+    		"servingId": "c049593d-5dc8-4a6e-854e-16857dbe8baf",
+    		"instanceId": 291
+  		},
+  		"paramsMap" : {
+    		"key1": "value1",
+    		"key2": "value2"
+  		}
+  	},
+  	{
+  		"eventType": "AD_SHOW",
+  		"adMeta": {
+    		"servingId": "c049593d-5dc8-4a6e-854e-16857dbe8baf",
+    		"instanceId": 291
+  		},
+  		"paramsMap" : {
+    		"key1": "value1",
+    		"key2": "value2"
+  		}
+  	}
+  ]
 }
+
 ```
 #### Response
 ```json
 {
-    "statusCode": 200,
-    "status": "OK"
 }
 ```
 
